@@ -2,13 +2,16 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using System;
+using UnityEngine.Events;
 
 
 // Example for IronSource Unity.
 public class IronSourceDemoScript : MonoBehaviour
 {
-
-   
+    public GameObject Objek;
+    
+    /*[Header("Rewarded Ad Listener")]
+    public RewardedAdEvent rewardedAdEvent;*/
 
     public void Start()
     {
@@ -282,7 +285,7 @@ public class IronSourceDemoScript : MonoBehaviour
     void RewardedVideoAdRewardedEvent(IronSourcePlacement ssp)
     {
         Debug.Log("unity-script: I got RewardedVideoAdRewardedEvent, amount = " + ssp.getRewardAmount() + " name = " + ssp.getRewardName());
-        
+        Objek.SetActive(true);
     }
 
     void RewardedVideoAdClosedEvent()
