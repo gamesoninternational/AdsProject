@@ -3,21 +3,21 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 using UnityEngine.Events;
-
+using TMPro;
 
 // Example for IronSource Unity.
 public class IronSourceDemoScript : MonoBehaviour
 {
     public GameObject Objek;
+    public TextMeshProUGUI TextInfoUI;
     
-    /*[Header("Rewarded Ad Listener")]
-    public RewardedAdEvent rewardedAdEvent;*/
 
     public void Start()
     {
 
 #if UNITY_ANDROID
-        string appKey = "85460dcd";
+        string appKey = "8545d445";
+        
 #elif UNITY_IPHONE
         string appKey = "8545d445";
 #else
@@ -36,6 +36,8 @@ public class IronSourceDemoScript : MonoBehaviour
         IronSource.Agent.init(appKey);
 
     }
+
+    
 
     void OnEnable()
     {
@@ -141,14 +143,16 @@ public class IronSourceDemoScript : MonoBehaviour
     public void ShowRewardedAdsIS() {
         if (IronSource.Agent.isRewardedVideoAvailable())
         {
+            
             IronSource.Agent.showRewardedVideo();
+            //IronSource.Agent.init("19e606f05", IronSourceAdUnits.REWARDED_VIDEO);
         }
         else
         {
             Debug.Log("unity-script: IronSource.Agent.isRewardedVideoAvailable - False");
         }
     }
-
+    
     /*public void OnGUI()
     {
 
@@ -233,6 +237,7 @@ public class IronSourceDemoScript : MonoBehaviour
     void SdkInitializationCompletedEvent()
     {
         Debug.Log("unity-script: I got SdkInitializationCompletedEvent");
+        
     }
 
     #endregion
@@ -248,6 +253,7 @@ public class IronSourceDemoScript : MonoBehaviour
     void ReardedVideoOnAdAvailable(IronSourceAdInfo adInfo)
     {
         Debug.Log("unity-script: I got ReardedVideoOnAdAvailable With AdInfo " + adInfo.ToString());
+        TextInfoUI.text = "IS Ready to Show";
     }
     void ReardedVideoOnAdUnavailable()
     {
@@ -275,6 +281,7 @@ public class IronSourceDemoScript : MonoBehaviour
     void RewardedVideoAvailabilityChangedEvent(bool canShowAd)
     {
         Debug.Log("unity-script: I got RewardedVideoAvailabilityChangedEvent, value = " + canShowAd);
+        
     }
 
     void RewardedVideoAdOpenedEvent()
@@ -291,6 +298,8 @@ public class IronSourceDemoScript : MonoBehaviour
     void RewardedVideoAdClosedEvent()
     {
         Debug.Log("unity-script: I got RewardedVideoAdClosedEvent");
+        IronSource.Agent.shouldTrackNetworkState(true);
+        TextInfoUI.text = "-";
     }
 
     void RewardedVideoAdStartedEvent()
@@ -319,6 +328,7 @@ public class IronSourceDemoScript : MonoBehaviour
     {
         
         Debug.Log("unity-script: I got RewardedVideoAdLoadedDemandOnlyEvent for instance: " + instanceId);
+        
     }
 
     void RewardedVideoAdLoadFailedDemandOnlyEvent(string instanceId, IronSourceError error)

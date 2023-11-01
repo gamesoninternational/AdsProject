@@ -8,7 +8,8 @@ using UnityEngine.Events;
 public class AdmobAdsScript : MonoBehaviour
 {
     //public TextMeshProUGUI totalCoinsTxt;
-    public GameObject LoadingPanel;
+    //public GameObject LoadingPanel;
+    public TextMeshProUGUI TextInfoUI;
     public Button ButtonAds;
     public string appId = "ca-app-pub-3949237800163961~7081373850";// "ca-app-pub-3940256099942544~3347511713";
 
@@ -53,10 +54,11 @@ public class AdmobAdsScript : MonoBehaviour
         {
 
             print("Ads Initialised !!");
-
+            ButtonAds.interactable = false;
+            TextInfoUI.text = "Admob Loading";
         });
         LoadRewardedAd();
-        //ButtonAds.interactable = false;
+        
     }
 
     #region Banner
@@ -273,15 +275,17 @@ public class AdmobAdsScript : MonoBehaviour
             }
 
             print("Rewarded ad loaded !!");
-            //ButtonAds.interactable = true;
+            ButtonAds.interactable = true;
+            TextInfoUI.text = "Admob Rewarded ad loaded !!";
             rewardedAd = ad;
             RewardedAdEvents(rewardedAd);
         });
     }
     public void ShowRewardedAd()
     {
-        LoadingPanel.SetActive(true);
-        //ButtonAds.interactable = false;
+        //LoadingPanel.SetActive(true);
+        ButtonAds.interactable = false;
+        TextInfoUI.text = "Admob Loading";
         if (rewardedAd != null && rewardedAd.CanShowAd())
         {
             rewardedAd.Show((Reward reward) =>
@@ -334,7 +338,7 @@ public class AdmobAdsScript : MonoBehaviour
         {
             Debug.Log("Rewarded ad full screen content closed.");
             //ButtonAds.interactable = false;
-            LoadingPanel.SetActive(false);
+            //LoadingPanel.SetActive(false);
             LoadRewardedAd();
             
             rewardedAdEvent.OnAdFullScreenContentClosed.Invoke();
